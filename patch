@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Kill previous adb connections
+sudo adb kill-server
+# Run adb with root privileges
+sudo adb devices
+# Run adb as root
+adb root
+# Remount root partition read-write
+adb shell mount -o rw,remount /
+# Remount system partition read-write
+adb shell mount -o rw,remount /system
+# Copy hosts file into device, overvriting old hosts file
+adb push hosts /system/etc/hosts
+# Restart phone to make changes take effect
+adb reboot
+echo "Done!"
+exit 0
